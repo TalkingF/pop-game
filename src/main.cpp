@@ -1,12 +1,18 @@
 ﻿
-
+#include <raylib.h>
 #include <iostream>
-
-using namespace std;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
-	cout << "Test";
-	return 0;
+	InitWindow(800, 800, "raylib window");
+	SetTargetFPS(60);
+
+	while (!WindowShouldClose()) {
+
+		BeginDrawing();
+		ClearBackground(BLACK);
+		DrawText("This is a test window :D", 300, 350, 20, RAYWHITE);
+		EndDrawing();
+
+	}
 }
