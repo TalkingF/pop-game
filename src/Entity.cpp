@@ -1,12 +1,12 @@
 #include "Entity.h"
 #include <stdlib.h>     
 #include <time.h> 
+#include <iostream>
+#include <cmath>
 
 Entity::Entity() {
-	srand(time(NULL));
-	int random = rand() % 11; //rand = (0-11)
-
-	switch (random)
+	
+	switch (rand() % 11)
 	{
 	case 0:
 		this->color = RED;
@@ -44,9 +44,54 @@ Entity::Entity() {
 	case 11:
 		this->color = LIME;
 		break;
+	default:
+		this->color = BLANK;
+		std::cerr << "Colour out of bounds";
 	}
 
-	random = rand() % 20 + 20;
-	this->size = random;
-	this->score = 600 - 5 * random; //max score = (500-400);
+	float rand_size= rand() % 20 + 20.0;
+	this->size = rand_size;
+	this->score = 600 - 5 * rand_size; //max score = (500-400)
+	this->x_pos = rand() % 600 + 100; // ensures entities dont expand past edge
+	this->y_pos = rand() % 600 + 100;
+	DrawCircle(this->x_pos, this->y_pos , this->size, this->color);
+}
+
+void Entity::Update(int x, int y) {
+
+	//check collision
+	if (x != NULL || y != NULL) {
+		if (sqrt(pow(x - this->x_pos, 2) + pow(y - this->y_pos, 2)) < this->size) {
+			this->mark_for_delete = true;
+			
+		}
+
+	}
+	
+	//change size
+	this->size *= 1.02;
+
+	//change score
+	this->score -= 10;
+
+	//check if too big
+	if (this->size > 100) {
+		this->score = 0;
+		this->mark_for_delete = true;
+	}
+
+}
+
+void Entity::Draw() {
+	DrawCircle(this->x_pos, this->y_pos, this->size, this->color);
+
+}
+
+bool Entity::getMarkForDelete() {
+	return this->mark_for_delete;
+}
+
+Entity::~Entity() {
+	
+
 }

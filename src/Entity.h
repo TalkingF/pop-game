@@ -5,13 +5,20 @@
 
 class Entity {
 	int score;
-	int size;
+	float size;
+	int x_pos;
+	int y_pos;
+	bool mark_for_delete = false;
 	Color color;
 
 
 public:
 	Entity();
-	void Process();
+	~Entity();
+	void Update(int x, int y);
+	void Draw();
+	bool getMarkForDelete();
+
 
 
 };

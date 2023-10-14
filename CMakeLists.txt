@@ -31,9 +31,9 @@ include_directories(
 file(GLOB_RECURSE SRCS src/*.cpp)
 
 set(PROJECT_NAME_LIB ${PROJECT_NAME}_lib)
-add_library(${PROJECT_NAME_LIB} STATIC ${SRCS})
+add_library(${PROJECT_NAME_LIB} STATIC ${SRCS} "src/Entity.h" "src/Entity.cpp")
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp "src/Entity.h" "src/Entity.cpp")
 
 target_include_directories(${PROJECT_NAME_LIB} PRIVATE
     lib
