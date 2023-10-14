@@ -57,15 +57,15 @@ Entity::Entity() {
 	DrawCircle(this->x_pos, this->y_pos , this->size, this->color);
 }
 
-void Entity::Update(int x, int y) {
+//TODO: delete entity with larger score
+void Entity::Update(int &x, int &y) {
 
 	//check collision
 	if (x != NULL || y != NULL) {
 		if (sqrt(pow(x - this->x_pos, 2) + pow(y - this->y_pos, 2)) < this->size) {
 			this->mark_for_delete = true;
-			
+			x = y = NULL; //allows only once entity to be destroyed per click
 		}
-
 	}
 	
 	//change size
@@ -75,7 +75,7 @@ void Entity::Update(int x, int y) {
 	this->score -= 10;
 
 	//check if too big
-	if (this->size > 100) {
+	if (this->score < 0) {
 		this->score = 0;
 		this->mark_for_delete = true;
 	}
@@ -89,6 +89,10 @@ void Entity::Draw() {
 
 bool Entity::getMarkForDelete() {
 	return this->mark_for_delete;
+}
+
+int Entity::getScore() {
+	return this->score;
 }
 
 Entity::~Entity() {
