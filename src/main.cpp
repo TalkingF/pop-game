@@ -10,10 +10,18 @@
 int main()
 {
 	//init
+	//setting dir to root
+	for (int i = 0; i < 3; i++) {
+		ChangeDirectory("..");
+	}
+
+	
+	
 	InitWindow(1000, 1000, "raylib window");
 	SetTargetFPS(60);
 	srand(time(NULL));
 	Game game;
+
 	
 	
 	while (!WindowShouldClose()) {

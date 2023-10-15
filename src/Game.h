@@ -5,6 +5,7 @@
 #include <vector>
 
 class Game {
+	
 	int score;
 	int lives;
 	float time; //used for counting down or up in time attacks and survival
@@ -13,6 +14,8 @@ class Game {
 	int x_pos;
 	int y_pos;
 	const int MAX_ENTITIES = 15;
+	Texture heart_full;
+	Texture heart_empty;
 	
 	std::vector<Entity> entities;
 

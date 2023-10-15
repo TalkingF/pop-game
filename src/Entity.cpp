@@ -52,8 +52,8 @@ Entity::Entity() {
 	float rand_size= rand() % 20 + 20.0;
 	this->size = rand_size;
 	this->value = 600 - 5 * rand_size; //max value = (500-400)
-	this->x_pos = rand() % 600 + 100; // ensures entities dont expand past edge
-	this->y_pos = rand() % 600 + 100;
+	this->x_pos = rand() % 800 + 100; // ensures entities dont expand past edge
+	this->y_pos = rand() % 700 + 200;
 	DrawCircle(this->x_pos, this->y_pos , this->size, this->color);
 }
 
@@ -69,7 +69,7 @@ void Entity::Update(int &x, int &y) {
 	}
 	
 	//change size
-	this->size *= 1.01;
+	this->size *= 1.008;
 
 	//change value
 	this->value -= 2;

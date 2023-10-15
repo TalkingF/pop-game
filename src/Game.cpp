@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <raylib.h>
+#include <raygui.h>
 
 Game::Game() {
 	this->score = 0;
@@ -9,6 +10,8 @@ Game::Game() {
 	this->spawn_interval = 0;
 	this->x_pos = NULL;
 	this->y_pos = NULL;
+	this->heart_full = LoadTexture("assets/images/heart_full_64x64.png");
+	this->heart_empty = LoadTexture("assets/images/heart_empty_64x64.png");
 }
 
 void Game::PollMouse() {
@@ -47,7 +50,6 @@ void Game::Update() {
 void Game::spawnEntity() {
 	if (this->entities.size() < this->MAX_ENTITIES && 
 		this->time_interval > this->spawn_interval) {
-
 		this->entities.push_back(Entity());
 		this->spawn_interval = time_interval + 0.5;
 		
@@ -57,8 +59,20 @@ void Game::spawnEntity() {
 void Game::Draw() {
 
 	ClearBackground(RAYWHITE);
-	DrawText(TextFormat("%d", score), 300, 350, 20, BLACK);
-	DrawText(TextFormat("%d", this->entities.size()), 500, 350, 20, BLACK);
+	DrawRectangle(0, 0, 1000, 100, { 200, 200, 200, 160 });
+	
+	for (int i = 0; i < 3; i++) {
+		if (this->lives > i) {
+			DrawTexture(this->heart_full, 500 + 100 * i, 13, WHITE);
+		}
+		
+		else {
+			DrawTexture(this->heart_empty, 500 + 100 * i, 13, WHITE);
+		}
+	}
+
+	DrawText("Score:", 50, 35, 30, BLACK);
+	DrawText(TextFormat("%d", this->score), 180, 35, 30, BLACK);
 
 	for (auto i : this->entities) {
 		i.Draw();
