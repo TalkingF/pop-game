@@ -7,13 +7,14 @@ Game::Game() {
 	this->score = 0;
 	this->lives = 3;
 	this->time = 0;
-	this->time_interval = 0;
 	this->spawn_interval = 0;
+	this->fade_interval = 0;
 	this->x_pos = NULL;
 	this->y_pos = NULL;
 	this->heart_full = LoadTexture("assets/images/heart_full_64x64.png");
 	this->heart_empty = LoadTexture("assets/images/heart_empty_64x64.png");
 	this->exit_game = false;
+	this->miss = false;
 }
 
 void Game::PollMouse() {
@@ -35,28 +36,38 @@ bool Game::GetExitGame() {
 void Game::Update() {
 
 	PollMouse();
-
+	
+	//end current game game
 	if (this->lives < 1) {
 		this->entities.clear();
 	}
 
 	else {
+
 		for (auto i = 0; i < this->entities.size(); i++) {
-			if (this->entities[i].GetDefeated()) {
+			if (this->entities[i].GetDefeated()) { //enemies clicked on
 				this->score += entities[i].GetValue();
 				this->entities.erase(this->entities.begin() + i);
 			}
 
-			else if (this->entities[i].GetExpired()) {
+			else if (this->entities[i].GetExpired()) { //enemies expired
 				this->lives--;
 				this->entities.erase(this->entities.begin() + i);
 			}
 			else {
-				this->entities[i].Update(this->x_pos, this->y_pos);
+				this->entities[i].Update(this->x_pos, this->y_pos); //update the rest
 			}
 		}
-		this->x_pos = this->y_pos = NULL;
-		this->time_interval += GetFrameTime();
+		//click was registered but didn't overlap with any circle
+		if (this->x_pos != NULL && this->y_pos != NULL && time > fade_interval) {
+			this->miss = true;
+			this->score -= 500;
+			if (this->score < 0) this->score = 0;
+			this->fade_interval = time + 2.0;
+			this->x_pos = this->y_pos = NULL;
+	
+		}
+		
 		this->time += GetFrameTime();
 
 		spawnEntity();
@@ -66,9 +77,9 @@ void Game::Update() {
 void Game::spawnEntity() {
 
 	if (this->entities.size() < this->MAX_ENTITIES && 
-		this->time_interval > this->spawn_interval) {
+		this->time > this->spawn_interval) {
 		this->entities.push_back(Entity());
-		this->spawn_interval = time_interval + 0.5;
+		this->spawn_interval = time + 0.5;
 		
 	}
 }
@@ -90,12 +101,12 @@ void Game::Draw() {
 			this->score = 0;
 			this->lives = 3;
 			this->time = 0;
-			this->time_interval = 0;
 			this->spawn_interval = 0;
+			this->fade_interval = 0;
 			this->x_pos = NULL;
 			this->y_pos = NULL;
+			this->miss = false;
 		}
-
 
 		if (GuiButton({ 510, 500, 140, 80 }, "Quit")) this->exit_game = true;
 	}
@@ -116,6 +127,11 @@ void Game::Draw() {
 
 		DrawText("Score:", 50, 35, 30, BLACK);
 		DrawText(TextFormat("%d", this->score), 180, 35, 30, BLACK);
+
+		if (this->miss) {
+			DrawText("-500", 300, 35, 30, RED);
+			if (time > fade_interval) this->miss = false;
+		}
 
 		for (auto i : this->entities) {
 			i.Draw();

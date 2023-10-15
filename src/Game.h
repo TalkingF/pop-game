@@ -9,14 +9,15 @@ class Game {
 	int score;
 	int lives;
 	float time; //used for counting down or up in time attacks and survival
-	float time_interval; //used for spawning entities
 	float spawn_interval;
+	float fade_interval;
 	int x_pos;
 	int y_pos;
 	const int MAX_ENTITIES = 15;
 	Texture heart_full;
 	Texture heart_empty;
 	bool exit_game;
+	bool miss;
 	
 	std::vector<Entity> entities;
 
