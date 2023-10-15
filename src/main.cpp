@@ -24,7 +24,7 @@ int main()
 
 	
 	
-	while (!WindowShouldClose()) {
+	while (!game.GetExitGame() && !WindowShouldClose()) {
 		
 		BeginDrawing();
 		game.Update();

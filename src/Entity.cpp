@@ -65,7 +65,7 @@ void Entity::Update(int &x, int &y) {
 	//check collision
 	if (x != NULL || y != NULL) {
 		if (sqrt(pow(x - this->x_pos, 2) + pow(y - this->y_pos, 2)) < this->size) {
-			this->expired = true;
+			this->defeated = true;
 			x = y = NULL; //allows only once entity to be destroyed per click
 		}
 	}

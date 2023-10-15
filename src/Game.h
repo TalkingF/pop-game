@@ -16,6 +16,7 @@ class Game {
 	const int MAX_ENTITIES = 15;
 	Texture heart_full;
 	Texture heart_empty;
+	bool exit_game;
 	
 	std::vector<Entity> entities;
 
@@ -26,7 +27,7 @@ class Game {
 public:
 	Game();
 	std::vector<Entity> GetEntities();
-	
+	bool GetExitGame();
 	void Update();
 	void Draw();
 	
