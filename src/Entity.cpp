@@ -51,7 +51,7 @@ Entity::Entity() {
 
 	float rand_size= rand() % 20 + 20.0;
 	this->size = rand_size;
-	this->score = 600 - 5 * rand_size; //max score = (500-400)
+	this->value = 600 - 5 * rand_size; //max value = (500-400)
 	this->x_pos = rand() % 600 + 100; // ensures entities dont expand past edge
 	this->y_pos = rand() % 600 + 100;
 	DrawCircle(this->x_pos, this->y_pos , this->size, this->color);
@@ -69,14 +69,14 @@ void Entity::Update(int &x, int &y) {
 	}
 	
 	//change size
-	this->size *= 1.02;
+	this->size *= 1.01;
 
-	//change score
-	this->score -= 10;
+	//change value
+	this->value -= 2;
 
 	//check if too big
-	if (this->score < 0) {
-		this->score = 0;
+	if (this->value < 0 || this->size > 100) {
+		this->value = 0;
 		this->mark_for_delete = true;
 	}
 
@@ -87,12 +87,12 @@ void Entity::Draw() {
 
 }
 
-bool Entity::getMarkForDelete() {
+bool Entity::GetMarkForDelete() {
 	return this->mark_for_delete;
 }
 
-int Entity::getScore() {
-	return this->score;
+int Entity::GetValue() {
+	return this->value;
 }
 
 Entity::~Entity() {

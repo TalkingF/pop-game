@@ -30,9 +30,9 @@ include_directories(
 file(GLOB_RECURSE SRCS src/*.cpp)
 
 set(PROJECT_NAME_LIB ${PROJECT_NAME}_lib)
-add_library(${PROJECT_NAME_LIB} STATIC ${SRCS})
+add_library(${PROJECT_NAME_LIB} STATIC ${SRCS} "src/Game.cpp")
 
-add_executable(${PROJECT_NAME} "src/main.cpp" "src/Entity.h" "src/Entity.cpp")
+add_executable(${PROJECT_NAME} "src/main.cpp" "src/Entity.h" "src/Entity.cpp" "src/Game.cpp")
 
 target_include_directories(${PROJECT_NAME_LIB} PUBLIC
     lib/raylib/src

@@ -4,7 +4,7 @@
 #include <raylib.h>
 
 class Entity {
-	int score;
+	int value;
 	float size;
 	int x_pos;
 	int y_pos;
@@ -17,8 +17,8 @@ public:
 	~Entity();
 	void Update(int &x, int &y);
 	void Draw();
-	bool getMarkForDelete();
-	int getScore();
+	bool GetMarkForDelete();
+	int GetValue();
 
 
 
