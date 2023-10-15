@@ -31,8 +31,13 @@ void Game::Update() {
 	PollMouse();
 
 	for (auto i = 0; i < this->entities.size(); i++) {
-		if (this->entities[i].GetMarkForDelete()) {
+		if (this->entities[i].GetDefeated()) {
 			this->score += entities[i].GetValue();
+			this->entities.erase(this->entities.begin() + i);
+		}
+
+		else if (this->entities[i].GetExpired()) {
+			this->lives--;
 			this->entities.erase(this->entities.begin() + i);
 		}
 		else {

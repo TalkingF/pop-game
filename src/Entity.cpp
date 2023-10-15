@@ -5,6 +5,8 @@
 #include <cmath>
 
 Entity::Entity() {
+	this->expired = false;
+	this->defeated = false;
 	
 	switch (rand() % 11)
 	{
@@ -63,7 +65,7 @@ void Entity::Update(int &x, int &y) {
 	//check collision
 	if (x != NULL || y != NULL) {
 		if (sqrt(pow(x - this->x_pos, 2) + pow(y - this->y_pos, 2)) < this->size) {
-			this->mark_for_delete = true;
+			this->expired = true;
 			x = y = NULL; //allows only once entity to be destroyed per click
 		}
 	}
@@ -77,7 +79,7 @@ void Entity::Update(int &x, int &y) {
 	//check if too big
 	if (this->value < 0 || this->size > 100) {
 		this->value = 0;
-		this->mark_for_delete = true;
+		this->expired = true;
 	}
 
 }
@@ -87,8 +89,12 @@ void Entity::Draw() {
 
 }
 
-bool Entity::GetMarkForDelete() {
-	return this->mark_for_delete;
+bool Entity::GetExpired() {
+	return this->expired;
+}
+
+bool Entity::GetDefeated() {
+	return this->defeated;
 }
 
 int Entity::GetValue() {

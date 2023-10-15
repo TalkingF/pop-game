@@ -8,7 +8,8 @@ class Entity {
 	float size;
 	int x_pos;
 	int y_pos;
-	bool mark_for_delete = false;
+	bool expired;
+	bool defeated;
 	Color color;
 
 
@@ -17,7 +18,8 @@ public:
 	~Entity();
 	void Update(int &x, int &y);
 	void Draw();
-	bool GetMarkForDelete();
+	bool GetExpired();
+	bool GetDefeated();
 	int GetValue();
 
 
