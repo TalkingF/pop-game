@@ -16,7 +16,6 @@ class Entity {
 
 public:
 	Entity();
-	~Entity();
 	void Update(int &x, int &y);
 	void Draw();
 	bool GetExpired();

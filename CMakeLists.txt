@@ -10,7 +10,7 @@ if (POLICY CMP0141)
 endif()
 
 cmake_minimum_required(VERSION 3.15)
-project(raylib-game)
+project(pop-game)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
@@ -32,7 +32,7 @@ file(GLOB_RECURSE SRCS src/*.cpp)
 set(PROJECT_NAME_LIB ${PROJECT_NAME}_lib)
 add_library(${PROJECT_NAME_LIB} STATIC ${SRCS} "src/Game.cpp")
 
-add_executable(${PROJECT_NAME} "src/main.cpp" "src/Entity.h" "src/Entity.cpp" "src/Game.cpp")
+add_executable(${PROJECT_NAME} "src/main.cpp" "src/Entity.cpp" "src/Game.cpp")
 
 target_include_directories(${PROJECT_NAME_LIB} PUBLIC
     lib/raylib/src

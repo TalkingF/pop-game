@@ -101,4 +101,3 @@ int Entity::GetValue() {
 	return this->value;
 }
 
-
