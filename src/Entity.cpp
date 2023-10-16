@@ -8,6 +8,7 @@ Entity::Entity() {
 	this->expired = false;
 	this->defeated = false;
 	
+	
 	switch (rand() % 11)
 	{
 	case 0:

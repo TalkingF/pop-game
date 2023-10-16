@@ -11,6 +11,7 @@ class Entity {
 	bool expired;
 	bool defeated;
 	Color color;
+	
 
 
 public:

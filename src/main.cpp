@@ -15,9 +15,8 @@ int main()
 		ChangeDirectory("..");
 	}
 
-	
-	
 	InitWindow(1000, 1000, "raylib window");
+	InitAudioDevice();
 	SetTargetFPS(60);
 	srand(time(NULL));
 	Game game;

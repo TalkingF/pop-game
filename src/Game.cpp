@@ -15,6 +15,8 @@ Game::Game() {
 	this->heart_empty = LoadTexture("assets/images/heart_empty_64x64.png");
 	this->exit_game = false;
 	this->miss = false;
+	this->sound_click = LoadSound("assets/sounds/Mouse Hover Glass A.wav");
+	this->sound_miss = LoadSound("assets/sounds/Click Plastic.wav");
 }
 
 void Game::PollMouse() {
@@ -43,7 +45,7 @@ void Game::Update() {
 	}
 
 	else {
-
+		bool empty_click = this->x_pos == NULL;
 		for (auto i = 0; i < this->entities.size(); i++) {
 			if (this->entities[i].GetDefeated()) { //enemies clicked on
 				this->score += entities[i].GetValue();
@@ -56,10 +58,14 @@ void Game::Update() {
 			}
 			else {
 				this->entities[i].Update(this->x_pos, this->y_pos); //update the rest
+				if (this->x_pos == NULL && !empty_click) {
+					PlaySound(this->sound_click);
+				}
 			}
 		}
 		//click was registered but didn't overlap with any circle
 		if (this->x_pos != NULL && this->y_pos != NULL && time > fade_interval) {
+			PlaySound(this->sound_miss);
 			this->miss = true;
 			this->score -= 500;
 			if (this->score < 0) this->score = 0;
@@ -67,6 +73,7 @@ void Game::Update() {
 			this->x_pos = this->y_pos = NULL;
 	
 		}
+
 		
 		this->time += GetFrameTime();
 

@@ -18,6 +18,9 @@ class Game {
 	Texture heart_empty;
 	bool exit_game;
 	bool miss;
+	Sound sound_click;
+	Sound sound_miss;
+
 	
 	std::vector<Entity> entities;
 
