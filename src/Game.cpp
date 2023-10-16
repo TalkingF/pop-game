@@ -19,6 +19,7 @@ Game::Game() {
 	this->sound_miss = LoadSound("assets/sounds/Click Plastic.wav");
 }
 
+//gets mouse coords if mouse is clicked
 void Game::PollMouse() {
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 		this->x_pos = GetMouseX();
@@ -44,6 +45,7 @@ void Game::Update() {
 		this->entities.clear();
 	}
 
+	//iterates over each entity
 	else {
 		bool empty_click = this->x_pos == NULL;
 		for (auto i = 0; i < this->entities.size(); i++) {
@@ -63,6 +65,7 @@ void Game::Update() {
 				}
 			}
 		}
+
 		//click was registered but didn't overlap with any circle
 		if (this->x_pos != NULL && this->y_pos != NULL && time > fade_interval) {
 			PlaySound(this->sound_miss);
@@ -76,11 +79,12 @@ void Game::Update() {
 
 		
 		this->time += GetFrameTime();
-
+		
 		spawnEntity();
 	}
 }
 
+//checks if time has elapsed since last entity and that there is room
 void Game::spawnEntity() {
 
 	if (this->entities.size() < this->MAX_ENTITIES && 
@@ -91,6 +95,7 @@ void Game::spawnEntity() {
 	}
 }
 
+//draws game to screen
 void Game::Draw() {
 
 	ClearBackground(RAYWHITE);
@@ -148,3 +153,9 @@ void Game::Draw() {
 	
 }
 
+Game::~Game() {
+	UnloadTexture(this->heart_full);
+	UnloadTexture(this->heart_empty);
+	UnloadSound(this->sound_click);
+	UnloadSound(this->sound_miss);
+}

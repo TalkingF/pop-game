@@ -8,7 +8,7 @@ class Game {
 	
 	int score;
 	int lives;
-	float time; //used for counting down or up in time attacks and survival
+	float time;
 	float spawn_interval;
 	float fade_interval;
 	int x_pos;
@@ -30,6 +30,7 @@ class Game {
 
 public:
 	Game();
+	~Game();
 	std::vector<Entity> GetEntities();
 	bool GetExitGame();
 	void Update();

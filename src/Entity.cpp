@@ -8,7 +8,6 @@ Entity::Entity() {
 	this->expired = false;
 	this->defeated = false;
 	
-	
 	switch (rand() % 11)
 	{
 	case 0:
@@ -102,7 +101,4 @@ int Entity::GetValue() {
 	return this->value;
 }
 
-Entity::~Entity() {
-	
 
-}
