@@ -33,6 +33,7 @@
 
 #build 
 out/
+release/
 
 #visual studio
 .vs/
