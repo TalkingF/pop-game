@@ -28,7 +28,7 @@ void Game::PollMouse() {
 
 }
 
-std::vector<Entity> Game::GetEntities() {
+std::vector<std::shared_ptr<Entity>> Game::GetEntities() {
 	return this->entities;
 }
 
@@ -49,17 +49,17 @@ void Game::Update() {
 	else {
 		bool empty_click = this->x_pos == NULL;
 		for (auto i = 0; i < this->entities.size(); i++) {
-			if (this->entities[i].GetDefeated()) { //enemies clicked on
-				this->score += entities[i].GetValue();
+			if (this->entities[i]->GetDefeated()) { //enemies clicked on
+				this->score += entities[i]->GetValue();
 				this->entities.erase(this->entities.begin() + i);
 			}
 
-			else if (this->entities[i].GetExpired()) { //enemies expired
+			else if (this->entities[i]->GetExpired()) { //enemies expired
 				this->lives--;
 				this->entities.erase(this->entities.begin() + i);
 			}
 			else {
-				this->entities[i].Update(this->x_pos, this->y_pos); //update the rest
+				this->entities[i]->Update(this->x_pos, this->y_pos); //update the rest
 				if (this->x_pos == NULL && !empty_click) {
 					PlaySound(this->sound_click);
 				}
@@ -89,7 +89,7 @@ void Game::spawnEntity() {
 
 	if (this->entities.size() < this->MAX_ENTITIES && 
 		this->time > this->spawn_interval) {
-		this->entities.push_back(Entity());
+		this->entities.emplace_back(std::make_shared<Entity>());
 		this->spawn_interval = time + 0.5;
 		
 	}
@@ -145,12 +145,8 @@ void Game::Draw() {
 			if (time > immunity_interval) this->miss = false;
 		}
 
-		for (auto i : this->entities) {
-			i.Draw();
-		}
-
+		for (auto i = 0; i < entities.size(); i++) entities[i]->Draw();
 	}
-	
 }
 
 Game::~Game() {

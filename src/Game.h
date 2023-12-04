@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include <vector>
+#include <memory>
 
 class Game {
 	
@@ -20,9 +21,7 @@ class Game {
 	bool miss;
 	Sound sound_click;
 	Sound sound_miss;
-
-	
-	std::vector<Entity> entities;
+	std::vector<std::shared_ptr<Entity>> entities;
 
 	void PollMouse();
 	void spawnEntity();
@@ -31,12 +30,10 @@ class Game {
 public:
 	Game();
 	~Game();
-	std::vector<Entity> GetEntities();
+	std::vector<std::shared_ptr<Entity>> GetEntities();
 	bool GetExitGame();
 	void Update();
 	void Draw();
-	
-	
 };
 #endif // !GAME_H
 
