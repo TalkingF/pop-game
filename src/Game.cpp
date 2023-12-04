@@ -17,7 +17,6 @@ Game::Game() {
 	this->miss = false;
 	this->sound_click = LoadSound("../../../assets/sounds/Mouse Hover Glass A.wav");
 	this->sound_miss = LoadSound("../../../assets/sounds/Click Plastic.wav");
-	ExportWaveAsCode(this->sound_miss);
 
 }
 
