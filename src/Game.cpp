@@ -8,15 +8,15 @@ Game::Game() {
 	this->lives = 3;
 	this->time = 0;
 	this->spawn_interval = 0;
-	this->fade_interval = 0;
+	this->immunity_interval = 0;
 	this->x_pos = NULL;
 	this->y_pos = NULL;
-	this->heart_full = LoadTexture("assets/images/heart_full_64x64.png");
-	this->heart_empty = LoadTexture("assets/images/heart_empty_64x64.png");
+	this->heart_full = LoadTexture("../../../assets/images/heart_full_64x64.png");
+	this->heart_empty = LoadTexture("../../../assets/images/heart_empty_64x64.png");
 	this->exit_game = false;
 	this->miss = false;
-	this->sound_click = LoadSound("assets/sounds/Mouse Hover Glass A.wav");
-	this->sound_miss = LoadSound("assets/sounds/Click Plastic.wav");
+	this->sound_click = LoadSound("../../../assets/sounds/Mouse Hover Glass A.wav");
+	this->sound_miss = LoadSound("../../../assets/sounds/Click Plastic.wav");
 }
 
 //gets mouse coords if mouse is clicked
@@ -67,12 +67,12 @@ void Game::Update() {
 		}
 
 		//click was registered but didn't overlap with any circle
-		if (this->x_pos != NULL && this->y_pos != NULL && time > fade_interval) {
+		if (this->x_pos != NULL && this->y_pos != NULL && time > immunity_interval) {
 			PlaySound(this->sound_miss);
 			this->miss = true;
 			this->score -= 500;
 			if (this->score < 0) this->score = 0;
-			this->fade_interval = time + 2.0;
+			this->immunity_interval = time + 2.0;
 			this->x_pos = this->y_pos = NULL;
 	
 		}
@@ -114,7 +114,7 @@ void Game::Draw() {
 			this->lives = 3;
 			this->time = 0;
 			this->spawn_interval = 0;
-			this->fade_interval = 0;
+			this->immunity_interval = 0;
 			this->x_pos = NULL;
 			this->y_pos = NULL;
 			this->miss = false;
@@ -142,7 +142,7 @@ void Game::Draw() {
 
 		if (this->miss) {
 			DrawText("-500", 300, 35, 30, RED);
-			if (time > fade_interval) this->miss = false;
+			if (time > immunity_interval) this->miss = false;
 		}
 
 		for (auto i : this->entities) {

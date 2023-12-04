@@ -10,7 +10,7 @@ class Game {
 	int lives;
 	float time;
 	float spawn_interval;
-	float fade_interval;
+	float immunity_interval;
 	int x_pos;
 	int y_pos;
 	const int MAX_ENTITIES = 15;
