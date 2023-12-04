@@ -59,7 +59,6 @@ Entity::Entity() {
 	DrawCircle(this->x_pos, this->y_pos , this->size, this->color);
 }
 
-//TODO: delete entity with larger score
 void Entity::Update(int &x, int &y) {
 
 	//check collision
@@ -81,7 +80,6 @@ void Entity::Update(int &x, int &y) {
 		this->value = 0;
 		this->expired = true;
 	}
-
 }
 
 void Entity::Draw() {

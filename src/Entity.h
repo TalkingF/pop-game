@@ -11,8 +11,6 @@ class Entity {
 	bool expired;
 	bool defeated;
 	Color color;
-	
-
 
 public:
 	Entity();
@@ -21,9 +19,6 @@ public:
 	bool GetExpired();
 	bool GetDefeated();
 	int GetValue();
-
-
-
 };
 
 #endif // !ENTITY_H
